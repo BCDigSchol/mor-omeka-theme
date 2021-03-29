@@ -297,7 +297,7 @@ Table of Contents
       float: left; }
     .item.pagination .button {
       float: left;}
-  
+
   /* !---------- Header ---------- */
   #site-title {
     font-size: 32px;
@@ -870,7 +870,7 @@ Table of Contents
     clear: both; }
     .exhibits.show #content .exhibit-page-nav .current, .exhibits.show #content .exhibit-child-nav .current {
       font-weight: bold; }
-   /* Suppressing to get rid of box and shadow around exhibit breadcrumbs 
+   /* Suppressing to get rid of box and shadow around exhibit breadcrumbs
   .exhibits.show #content .exhibit-page-nav {
     box-shadow: rgba(0, 0, 0, 0.15) 0 0 10px;
     margin-bottom: 24px; }
@@ -878,7 +878,7 @@ Table of Contents
     .exhibits.show #content .exhibit-page-nav a {
       padding: 0;
       vertical-align: bottom; }
-    /* Suppressing to get rid of box and shadow around exhibit breadcrumbs 
+    /* Suppressing to get rid of box and shadow around exhibit breadcrumbs
     .exhibits.show #content .exhibit-page-nav > li:nth-child(2) {
       background-color: rgba(0, 0, 0, 0.1);
       max-width: none; }
@@ -1387,8 +1387,8 @@ Table of Contents
     background-color: #666;
     color: #252525; }
   .night input[type=text], .night input[type=password], .night textarea {
-    background-color: #252525;
-    border: 1px solid #666;
+    background-color: #FFF;
+    border: 1px solid #dfe2e2;
     color: #ccc; }
   .night a:link {
     color: #FFE000; }
@@ -1496,6 +1496,9 @@ Table of Contents
   .night td, .night th {
     border-color: #333333; } }
 
+  .night .universal-viewer.viewer {
+    background-color: black; 
+  }
 @media screen and (min-width: 768px) {
   /*
 Table of Contents

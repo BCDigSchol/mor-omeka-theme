@@ -1,11 +1,16 @@
 <?php echo head(array('title' => metadata('item', array('Dublin Core', 'Title')),'bodyclass' => 'items show')); ?>
   <style>
         /* Make the buttons look less button-y. */
+        .hide-show-button-row {
+            width: 420px;
+            }
+
         .hide-show-button-row button {
-            border: none;
+            border: solid;
+            border-width: 1px;
             background: transparent;
             text-transform: none;
-			margin: auto;
+			      margin-left: 6px !important;
         }
 
         /* Hide all elements by default on initial page load. */
@@ -19,20 +24,40 @@
         }
 
 		div.element-set {
-			width: 420px; 
-            height: 280px; 
-            overflow: auto; 
+			width: 420px;
+            height: 280px;
+            overflow: scroll;
 		}
 
-        -->
+
+div.element-set::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+div.element-set::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+div.element-set::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+div.element-set::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
+
+
+
     </style>
 
-	
+
 
 <!-- Moved navigation to the top of the page -->
 <ul class="item-pagination navigation">
     <li id="previous-item" class="previous"><?php echo link_to_previous_item_show(); ?></li>
-	
+
 
     <li id="next-item" class="next"><?php echo link_to_next_item_show(); ?></li>
 </ul>
@@ -41,28 +66,32 @@
 
 <div id="primary">
 
-    <?php if ((get_theme_option('Item FileGallery') == 0) && metadata('item', 'has files')): ?>
-    <?php echo files_for_item(array('imageSize' => 'fullsize')); ?>
-    <?php endif; ?>
-    
+    <!-- Removed regular image view and added universal viewer -->
+    <?php fire_plugin_hook('public_items_show', array('view' => $this, 'item' => $item)); ?>
+
+
+
+
 	 <!-- The following prints a citation for this item. -->
     <div id="item-citation" class="element">
         <h2><?php echo __('Citation'); ?></h2>
         <div class="element-text"><?php echo metadata('item', 'citation', array('no_escape' => true)); ?></div>
     </div>
-    
+
+
+
 </div><!-- end primary -->
 
 <aside id="sidebar">
 	<!-- SELECTIVE SHOW/HIDE CHANGES -->
 	<div class="hide-show-button-row">
 		<button id="set-one-button">Image Only</button>
-		<button id="set-two-button">Basic Information</button>
+		<button id="set-two-button">Basic Info</button>
 		<button id="set-three-button">Commentaries</button>
    </div>
    <!-- END SELECTIVE SHOW/HIDE CHANGES -->
-  
-	
+
+
 <script>
 <!-- SELECTIVE SHOW/HIDE CHANGES -->
 
@@ -148,14 +177,14 @@ var SelectivelyShow = (function () {
     // second field is an array of the IDs of the elements you want to show when that
     // button is pressed.
     SelectivelyShow.addSelectFieldsButton('set-one-button', ['dublin-core-identifier']);
-    SelectivelyShow.addSelectFieldsButton('set-two-button', ['dublin-core-title', 'dublin-core-creator', 'dublin-core-subject', 'dublin-core-type', 'still-image-item-type-metadata-physical-dimensions', 'still-image-item-type-metadata-original-format','dublin-core-date', 'item-citation']);
-    
+    SelectivelyShow.addSelectFieldsButton('set-two-button', ['dublin-core-title', 'dublin-core-creator', 'dublin-core-subject', 'dublin-core-type', 'dublin-core-is-part-of' , 'still-image-item-type-metadata-physical-dimensions', 'still-image-item-type-metadata-original-format','dublin-core-date', 'item-citation']);
+
 
 	 SelectivelyShow.addSelectFieldsButton('set-three-button', ['dublin-core-title', 'still-image-item-type-metadata-factual-commentary', 'still-image-item-type-metadata-interpretive-commentary', 'item-citation']);
-	
-	
-	
-	
+
+
+
+
 	//SelectivelyShow.addSelectFieldsButton('set-three-button', ['dublin-core-title', 'still-image-item-type-metadata-interpretive-commentary', 'item-citation']);
 
 </script>
@@ -167,8 +196,8 @@ var SelectivelyShow = (function () {
 	<?php //echo metadata('item', array('Dublin Core', 'Title')); ?>
 	<?php echo all_element_texts('item'); ?>
 	<?php //echo all_element_texts('item', array('show_element_sets' => array('Dublin Core'))); ?>
-	
-	
+
+
     <!-- The following returns all of the files associated with an item. -->
     <?php if ((get_theme_option('Item FileGallery') == 1) && metadata('item', 'has files')): ?>
     <div id="itemfiles" class="element">
@@ -184,13 +213,13 @@ var SelectivelyShow = (function () {
 		<?php echo metadata('item', array('Dublin Core', 'Alternative Title')); ?>
     </div>
     <?php endif; ?>
-	
+
 
 	<?php if (metadata('item', 'Collection Name')): ?>
     <div id="collection" class="element">
         <h2><?php echo __('Collection'); ?></h2>
         <div class="element-text"><p><?php echo link_to_collection_for_item(); ?></p></div>
-    </div> 
+    </div>
     <?php endif; ?>
 
     <!-- The following prints a list of all tags associated with the item -->
@@ -201,7 +230,7 @@ var SelectivelyShow = (function () {
     </div>
     <?php endif;?>
 
-   
+
 
 </aside>
 
